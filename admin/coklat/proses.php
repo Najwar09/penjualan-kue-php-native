@@ -1,0 +1,89 @@
+<?php
+include '../../koneksi.php';
+
+// proses menambahkan coklat dari admin
+if ($_GET['id'] == 'tambah') {
+    $dir = '../../images/';
+    $tmp_name = $_FILES['gambar']['tmp_name'];
+    $temp = explode(".", $_FILES["gambar"]["name"]);
+    $newfilename = round(microtime(true)) . '.' . end($temp);
+    $target_path = $dir . basename($newfilename);
+    $allowedImageType = array("image/gif",   "image/JPG",   "image/jpeg",   "image/pjpeg", "image/png",   "image/x-png");
+
+    if ($_FILES['gambar']["error"] > 0) {
+        echo '<script>alert("Error file");history.go(-1)</script>';
+        exit();
+    } elseif (round($_FILES['gambar']["size"] / 1024) > 4096) {
+        echo '<script>alert("WARNING !!! Besar Gambar Tidak Boleh Lebih Dari 4 MB !");history.go(-1)</script>';
+        exit();
+    } else {
+        if (move_uploaded_file($tmp_name, $target_path)) {
+
+            $nama_coklat = $_POST['nama_coklat'];
+            $harga = $_POST['harga'];
+            $stok = $_POST['stok'];
+            $deskripsi = $_POST['deskripsi'];
+            $status = $_POST['status'];
+            $gambar = $newfilename;
+
+            $query = "INSERT INTO coklat VALUES('','$nama_coklat','$harga','$stok','$deskripsi','$status','$gambar')";
+            mysqli_query($connection, $query);
+
+            echo '<script>alert("Data berhasil di tambahkan!");window.location="coklat.php";</script>';
+        }
+    }
+}
+
+
+
+
+// proses edit coklat dari admin
+if ($_GET['id'] == 'edit') {
+    $dir = '../../images/';
+    $tmp_name = $_FILES['gambar']['tmp_name'];
+    $temp = explode(".", $_FILES["gambar"]["name"]);
+    $newfilename = round(microtime(true)) . '.' . end($temp);
+    $target_path = $dir . basename($newfilename);
+    $allowedImageType = array("image/gif",   "image/JPG",   "image/jpeg",   "image/pjpeg", "image/png",   "image/x-png");
+    $tes = $_FILES['gambar']["error"];
+    var_dump($tes);
+    
+    if ($_FILES['gambar']["error"] > 0) {
+        echo '<script>alert("Error file");</script>';
+        exit();
+    } elseif (round($_FILES['gambar']["size"] / 1024) > 4096) {
+        echo '<script>alert("WARNING !!! Besar Gambar Tidak Boleh Lebih Dari 4 MB !");history.go(-1)</script>';
+        exit();
+    } else {
+        if (move_uploaded_file($tmp_name, $target_path)) {
+
+            $nama_coklat = $_POST['nama_coklat'];
+            $harga = $_POST['harga'];
+            $stok = $_POST['stok'];
+            $deskripsi = $_POST['deskripsi'];
+            $status = $_POST['status'];
+            $gambar = $newfilename;
+            $gambar_lama = $_POST['gambar_lama'];
+            var_dump($gambar_lama);
+
+            $query = "UPDATE coklat SET nama_coklat='$nama_coklat',harga='$harga',stok='$stok',deskripsi='$deskripsi',status='$status',gambar='$gambar'";
+            mysqli_query($connection, $query);
+
+        }
+    }
+}
+
+// proses hapus data coklat
+if ($_GET['aksi'] == 'hapus') {
+    $id_coklat = $_GET['id'];
+    $gambar = $_GET['gambar'];
+
+    unlink('../../images/' . $gambar);
+
+    $query = "DELETE FROM coklat WHERE id_coklat='$id_coklat'";
+    mysqli_query($connection, $query);
+
+    echo '<script>alert("Data berhasil di hapus!");window.location="coklat.php";</script>';
+}
+
+?>
