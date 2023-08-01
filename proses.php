@@ -1,6 +1,8 @@
 <?php
+// memanggil file koneksi.php
 include 'koneksi.php';
 
+// jika tidak ada variabel id maka akan di arahkan ke halaman index.php
 if (!isset($_GET['id'])) {
 	header("location:index.php");
 	exit();
@@ -118,7 +120,6 @@ if ($_GET['id'] == 'login') {
 	$query = "SELECT * FROM login WHERE username = '$user'";
 	$hasil = mysqli_query($connection, $query);
 
-	// password_verify('$pass',$isi['password']);
 
 	if (mysqli_num_rows($hasil) == 1) {
 		session_start();

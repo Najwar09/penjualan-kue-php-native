@@ -1,3 +1,4 @@
+<!-- memanggil fungsi untuk memulai sesi -->
 <?php
 session_start();
 ?>
@@ -46,7 +47,7 @@ session_start();
   <div class="main_body_content">
 
     <div class="hero_area">
-      <!-- header section strats -->
+      <!-- bagian navbar -->
       <header class="header_section">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -58,6 +59,7 @@ session_start();
               <span class=""> </span>
             </button>
 
+            <!-- bagian menu pada navbar -->
             <div class="collapse navbar-collapse " id="navbarSupportedContent">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
@@ -72,22 +74,33 @@ session_start();
                 <li class="nav-item">
                   <a class="nav-link" href="contact.php">Contact Us</a>
                 </li>
+                <?php
+                // jika user sudah login maka tombol pesanan pada header akan tampil
+                // jika user belum login maka tombol pesanan akan hilang
+                if (!empty($_SESSION['user'])) { ?>
+                  <li class="nav-item">
+                    <a class="nav-link" href="pesanan.php">Pesanan</a>
+                  </li>
+                <?php } ?>
               </ul>
               <div class="quote_btn-container">
 
                 <?php
-                  if (empty($_SESSION['user'])) {
-                    ?>
-                    <a href="login/index.php">
-                      <i class="fa fa-user" aria-hidden="true"></i>
-                    </a>
-                    <?php }else{ ?>
-                        <a href="login/logout.php" class="btn btn-danger text-light">Log Out</a>
-                      <?php }?>
-                    
+                // jika user belum login maka ikon login akan muncul
+                // jika user sudah login maka tombol logout akan muncul
+                if (empty($_SESSION['user'])) {
+                ?>
+                  <a href="login/index.php">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                  </a>
+                <?php } else { ?>
+                  <a href="login/logout.php" class="btn btn-danger text-light">Log Out</a>
+                <?php } ?>
+
               </div>
             </div>
+            <!-- bagian akhir menu pada navbar -->
           </nav>
         </div>
       </header>
-      <!-- end header section -->
+      <!-- bagian akhir navbar -->

@@ -1,15 +1,24 @@
 <?php
+// memanggil file koneksi.php
 include 'koneksi.php';
+
+// memanggil file header.php
 include 'header.php';
 
+// jika user belum login maka akan muncul alert harap login
 if (empty($_SESSION['user'])) {
   echo '<script>alert("Harap login !");window.location="index.php"</script>';
 }
 
+// mengambil data id_coklat dan disimpan pada variabel $id_coklat
 $id_coklat = $_GET['id_coklat'];
 
+// query untuk mengambil semua data pada tabel coklat berdasarkan variabel id_coklat diatas
 $query = "SELECT * FROM coklat WHERE id_coklat = '$id_coklat'";
+
+// perintah untuk menjalankan query diatas
 $hasil = mysqli_query($connection, $query);
+// mengubah data dari database yang telah diambil menjadi array asosiatif
 $isi = mysqli_fetch_assoc($hasil);
 
 ?>
@@ -25,7 +34,7 @@ $isi = mysqli_fetch_assoc($hasil);
 
 
 
-    <!-- FORM UNTUK MENGINPUT DATA PEMBELI KUE PADA HALAMAN BOOKING -->
+    <!-- form untuk menginput data pesanan  -->
     <div class="col-sm-8">
       <div class="card">
         <div class="card-body">
@@ -58,8 +67,8 @@ $isi = mysqli_fetch_assoc($hasil);
             <input type="hidden" value="<?= $isi['stok']; ?>" name="stok">
             <input type="hidden" value="<?= $isi['gambar']; ?>" name="gambar">
             <hr />
-            <!-- jika status kue tersedia maka akan tampil tombol booking now -->
-            <!-- jika status kue habil maka tombol booking now akan hilang -->
+            <!-- jika status coklat tersedia maka akan tampil tombol booking now -->
+            <!-- jika status coklat habil maka tombol booking now akan hilang -->
             <?php if ($isi['status'] == 'tersedia') { ?>
               <button type="submit" class="btn btn-dark float-right text-light">Pesan</button>
             <?php } else { ?>
@@ -74,6 +83,7 @@ $isi = mysqli_fetch_assoc($hasil);
 
 
 <?php
+// memanggil file footer.php
 include 'footer.php';
 
 ?>
