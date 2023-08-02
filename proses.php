@@ -47,11 +47,16 @@ if ($_GET['id'] == 'booking') {
 	$bukti = "";
 	$kode_booking = time();
 
+	session_start();
+	$user = $_SESSION['user']['id_login'];
 
 
 
-	$query = "INSERT INTO booking VALUES('','$kode_booking','$id_coklat','$nama','$alamat','$telpon','$jumlah','$total','$konfirmasi_pembayaran','$tgl_input','$bukti')";
+
+	$query = "INSERT INTO booking VALUES('', '$user','$kode_booking','$id_coklat','$nama','$alamat','$telpon','$jumlah','$total','$konfirmasi_pembayaran','$tgl_input','$bukti')";
+	// var_dump($query);
 	mysqli_query($connection, $query);
+	// var_dump($tes);
 
 	echo '<script>alert("Terima Kasih!Silahkan Melakukan Pembayaran!");window.location="bayar.php?id=' . time() . '";</script>';
 }
@@ -124,9 +129,9 @@ if ($_GET['id'] == 'login') {
 	if (mysqli_num_rows($hasil) == 1) {
 		session_start();
 		$isi = mysqli_fetch_assoc($hasil);
-		
+
 		$_SESSION['user'] = $isi;
-	
+
 		if ($isi['level'] == 'admin') {
 			echo '<script>alert("Login Sukses");window.location="admin/index.php";</script>';
 		} else {

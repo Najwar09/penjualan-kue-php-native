@@ -57,7 +57,7 @@ $isi = mysqli_fetch_assoc($hasil);
             </div>
             <div class="form-group">
               <label for="">Jumlah Pesanan</label>
-              <input type="number" name="jumlah" required class="form-control" placeholder="Masukkan Jumlah Yang Ingin Di Pesan!" value="1">
+              <input type="number" name="jumlah" required class="form-control" disabled placeholder="Masukkan Jumlah Yang Ingin Di Pesan!" value="1">
             </div>
 
 

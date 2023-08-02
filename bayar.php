@@ -14,6 +14,7 @@ $hasil = mysqli_query($connection, $query);
 // mengubah data yang telah diambil dari database dan diubah menjadi array asosiatif
 $isi = mysqli_fetch_assoc($hasil);
 
+
 $id_coklat = $isi['id_coklat'];
 $query2 = "SELECT * FROM coklat WHERE id_coklat = '$id_coklat'";
 $hasil2 = mysqli_query($connection, $query2);
