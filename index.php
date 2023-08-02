@@ -159,9 +159,9 @@ $hasil = mysqli_query($connection, $query);
               <?= number_format($isi['harga']) ?>
             </h5>
             <?php if ($isi['status'] == 'tersedia') { ?>
-              <a href="booking.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-success">Beli</a>
+              <a href="keranjang.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-success">Keranjang</a>
             <?php } else { ?>
-              <a href="booking.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-success" disabled>Beli</a>
+              <a href="keranjang.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-success" disabled>Keranjang</a>
             <?php } ?>
 
             <a href="detail.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-info">
