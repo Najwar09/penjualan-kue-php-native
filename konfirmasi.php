@@ -62,6 +62,30 @@ $isi = mysqli_fetch_assoc($hasil);
                                 </td>
                             </tr>
                             <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="">Nama</label>
+                                        <input type="text" name="nama" required class="form-control" placeholder="Nama Lengkap">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="">Alamat</label>
+                                        <input type="text" name="alamat" required class="form-control" placeholder="Alamat">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="">No Telpon</label>
+                                        <input type="text" name="no_telpon" required class="form-control" placeholder="No Telpon">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Masukkan Bukti Pembayaran</td>
                                 <td>:</td>
                                 <td><input type="file" name="bukti" required accept="image/*"></td>

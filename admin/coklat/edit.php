@@ -205,9 +205,17 @@ $isi = mysqli_fetch_assoc($hasil);
                             <input type="text" class="form-control" id="deskripsi" placeholder="Masukkan deskripsi" name="deskripsi" value="<?= $isi['deskripsi']; ?>">
                         </div>
 
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <input type="text" class="form-control" id="status" placeholder="tersedia / habis" name="status" value="<?= $isi['status']; ?>">
+                        <div class="form-group row">
+                            <label class="col-sm-3">Status</label>
+                            <select class="form-control col-sm-9" name="status">
+                                <option value="" disabled selected>Pilih Status</option>
+                                <option <?php if ($isi['status'] == 'tersedia') {
+                                            echo 'selected';
+                                        } ?>>tersedia</option>
+                                <option <?php if ($isi['status'] == 'habis') {
+                                            echo 'selected';
+                                        } ?>>habis</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -219,7 +227,8 @@ $isi = mysqli_fetch_assoc($hasil);
                             <label for="tes">Gambar</label>
                             <img src="../../images/<?= $isi['gambar']; ?>" class="img-fluid" style="height:150px;">
                         </div>
-                        <input type="text" hidden value="<?= $isi['gambar']; ?>" name="gambar_lama">
+                        <input type="hidden" value="<?= $isi['gambar']; ?>" name="gambar_lama">
+                        <input type="hidden" value="<?= $isi['id_coklat']; ?>" name="id_coklat">
 
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

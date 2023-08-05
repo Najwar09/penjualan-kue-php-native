@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 02 Agu 2023 pada 18.53
+-- Waktu pembuatan: 05 Agu 2023 pada 02.45
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -31,14 +31,11 @@ CREATE TABLE `booking` (
   `id_booking` int(11) NOT NULL,
   `id_login` int(11) NOT NULL,
   `kode_booking` varchar(255) NOT NULL,
-  `id_coklat` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `alamat` varchar(255) NOT NULL,
   `no_tlp` varchar(15) NOT NULL,
-  `jumlah` int(5) NOT NULL,
   `total_harga` int(11) NOT NULL,
-  `konfirmasi_pembayaran` varchar(255) NOT NULL,
-  `tgl_input` varchar(255) NOT NULL DEFAULT current_timestamp(),
+  `konfirmasi_pembayaran` varchar(50) NOT NULL,
   `bukti` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -46,15 +43,12 @@ CREATE TABLE `booking` (
 -- Dumping data untuk tabel `booking`
 --
 
-INSERT INTO `booking` (`id_booking`, `id_login`, `kode_booking`, `id_coklat`, `nama`, `alamat`, `no_tlp`, `jumlah`, `total_harga`, `konfirmasi_pembayaran`, `tgl_input`, `bukti`) VALUES
-(168, 19, '1690993539', 19, 'a', 's', '999', 1, 300000, 'belum bayar', '23-08-02', ''),
-(169, 19, '1690993554', 19, 'tes', 'tes', '000', 1, 300000, 'belum bayar', '23-08-02', ''),
-(170, 19, '1690993594', 19, 'tes', 'tes', '889', 1, 300000, 'belum bayar', '23-08-02', ''),
-(171, 19, '1690993617', 19, 'tes', 'tes', '889', 1, 300000, 'belum bayar', '23-08-02', ''),
-(172, 19, '1690993658', 19, 'janco', 'janco', '0987654321', 1, 300000, 'sedang di proses', '23-08-02', '1690993694.png'),
-(173, 19, '1690993773', 18, 'akmal', 'akmal', '9098765432', 2, 600000, 'belum bayar', '23-08-02', ''),
-(174, 19, '1690993984', 18, 'fff`f', 'ff', '0987654', 1, 300000, 'belum bayar', '23-08-02', ''),
-(175, 19, '1690994640', 15, 'hh', 'cendrawasih', '78787', 0, 0, 'belum bayar', '23-08-02', '');
+INSERT INTO `booking` (`id_booking`, `id_login`, `kode_booking`, `nama`, `alamat`, `no_tlp`, `total_harga`, `konfirmasi_pembayaran`, `bukti`) VALUES
+(190, 19, '1691178330', 'najwar', 'najwar', '123', 1200000, 'Pembayaran di terima', '1691178351.jpg'),
+(191, 19, '1691179555', 'iqra', 'daya', '78787', 600000, 'Pembayaran di terima', '1691179582.png'),
+(192, 20, '1691180194', 'lili', 'lili', '3232', 2100000, 'sedang di proses', '1691180228.jpg'),
+(193, 19, '1691184102', 'ofsaidfoaio', 'oasifoa', '909090', 989898, 'sedang di proses', '1691184122.jpg'),
+(194, 19, '1691190978', 'sultan', 'andara', '9849842', 45000000, 'Pembayaran di terima', '1691191002.jpg');
 
 -- --------------------------------------------------------
 
@@ -77,9 +71,40 @@ CREATE TABLE `coklat` (
 --
 
 INSERT INTO `coklat` (`id_coklat`, `nama_coklat`, `harga`, `stok`, `deskripsi`, `status`, `gambar`) VALUES
-(15, 'coklat kacang', 300000, 1, 'kue baru', 'tersedia', '1690469004.png'),
-(18, 'kue kering', 300000, 1, 'barukka', 'tersedia', '1690469070.png'),
-(19, 'kue kering', 300000, 554, 'barukka', 'tersedia', '1690469324.jfif');
+(15, 'coklat kacang', 300000, 76, 'kue baru', 'tersedia', '1690469004.png'),
+(19, 'kue kering', 300000, 400, 'barukka', 'tersedia', '1690469324.jfif'),
+(21, 'kue enak', 2100, 6, 'enak sekali', 'tersedia', '1691183012.png'),
+(23, 'pepe', 54321, 1, 'ndak enak sekali', 'tersedia', '1691190761.png');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `keranjang`
+--
+
+CREATE TABLE `keranjang` (
+  `id_keranjang` int(11) NOT NULL,
+  `id_coklat` int(11) NOT NULL,
+  `id_booking` int(11) NOT NULL,
+  `id_login` int(11) NOT NULL,
+  `gambar` varchar(200) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `harga` int(100) NOT NULL,
+  `jumlah` int(100) NOT NULL,
+  `subtotal` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `keranjang`
+--
+
+INSERT INTO `keranjang` (`id_keranjang`, `id_coklat`, `id_booking`, `id_login`, `gambar`, `nama`, `harga`, `jumlah`, `subtotal`) VALUES
+(29, 19, 1691178330, 19, '1690469324.jfif', 'kue kering', 300000, 4, 1200000),
+(30, 18, 1691179555, 19, '1690469070.png', 'kue kering', 300000, 1, 300000),
+(31, 15, 1691179555, 19, '1690469004.png', 'coklat kacang', 300000, 1, 300000),
+(32, 18, 1691180194, 20, '1690469070.png', 'kue kering', 300000, 7, 2100000),
+(33, 23, 1691184102, 19, '1691184057.png', 'fasdfasdlkl', 989898, 1, 989898),
+(34, 19, 1691190978, 19, '1690469324.jfif', 'kue kering', 300000, 150, 45000000);
 
 -- --------------------------------------------------------
 
@@ -99,8 +124,9 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id_login`, `username`, `password`, `level`) VALUES
-(18, 'admin', '$2y$10$61Ddh2m4FoaGSAOEe464zupcaOvZcOwZGwIkYmYM0A80V7rT7yHQu', 'admin'),
-(19, 'najwar', '$2y$10$FgKO2Fu7Xtkq2EbVqlhOzuDtPeM5A8oaX/eBrI4lvsBV1Tbx7sPle', 'pengguna');
+(18, 'admin', '$2y$10$aj1SINy00CSXCftQ1HHyOOCafu5IuhVEYu10Rn.CFvZ1n8rPPpPUW', 'admin'),
+(19, 'ramadhan', '$2y$10$cHWcZGiUs1805CmMfV9yj.V5CnWsdDwfTA4TVkXIP2Z49NVXTIxzS', 'pengguna'),
+(20, 'lili', '$2y$10$S4UvSCOTYm0ZJI2zApoFMOgilra5L8NNLtzgCG7O0sXlYWnpt1Evm', 'pengguna');
 
 -- --------------------------------------------------------
 
@@ -123,8 +149,7 @@ CREATE TABLE `pesan` (
 INSERT INTO `pesan` (`id_pesan`, `nama`, `nomor`, `email`, `pesan`) VALUES
 (1, 'najwar', '049309403', 'wasih09@gmail.com', 'selamat datang di toko kue online kami'),
 (2, 'najwar', '049309403', 'wasih09@gmail.com', 'selamat datang di toko kue online kami'),
-(3, 'madne', '4989', 'mande@gmail.com', 'asdfsladkfdas'),
-(5, 'najwar', '898989', 'wasih09@gmail.com', 'ioioioioiooooi');
+(3, 'madne', '4989', 'mande@gmail.com', 'asdfsladkfdas');
 
 --
 -- Indexes for dumped tables
@@ -141,6 +166,12 @@ ALTER TABLE `booking`
 --
 ALTER TABLE `coklat`
   ADD PRIMARY KEY (`id_coklat`);
+
+--
+-- Indeks untuk tabel `keranjang`
+--
+ALTER TABLE `keranjang`
+  ADD PRIMARY KEY (`id_keranjang`);
 
 --
 -- Indeks untuk tabel `login`
@@ -162,19 +193,25 @@ ALTER TABLE `pesan`
 -- AUTO_INCREMENT untuk tabel `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `id_booking` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
 
 --
 -- AUTO_INCREMENT untuk tabel `coklat`
 --
 ALTER TABLE `coklat`
-  MODIFY `id_coklat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_coklat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT untuk tabel `keranjang`
+--
+ALTER TABLE `keranjang`
+  MODIFY `id_keranjang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT untuk tabel `login`
 --
 ALTER TABLE `login`
-  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_login` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `pesan`

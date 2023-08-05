@@ -195,24 +195,28 @@ $hasil = mysqli_query($connection, $query);
 
                         <div class="form-group">
                             <label for="stok">Stok</label>
-                            <input type="number" class="form-control" id="stok"  placeholder="Masukkan Stok Coklat" name="stok" value="1">
+                            <input type="number" class="form-control" id="stok" placeholder="Masukkan Stok Coklat" name="stok" value="1">
                         </div>
 
                         <div class="form-group">
                             <label for="deskripsi">Deskripsi</label>
-                            <input type="text" class="form-control" id="deskripsi"  placeholder="Masukkan deskripsi" name="deskripsi">
+                            <input type="text" class="form-control" id="deskripsi" placeholder="Masukkan deskripsi" name="deskripsi">
                         </div>
 
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <input type="text" class="form-control" id="status"  placeholder="tersedia / habis" name="status">
-                        </div>
+                        <div class="form-group row">
+                                <label class="col-sm-3">Status</label>
+                                <select class="form-control col-sm-9" name="status">
+                                    <option value="" disabled selected>Pilih Status</option>
+                                    <option>tersedia</option>
+                                    <option>habis</option>
+                                </select>
+                            </div>
 
                         <div class="form-group">
                             <label for="gambar">Gambar</label>
                             <input type="file" class="form-control" id="gambar" accept="image/*" name="gambar">
                         </div>
-                       
+
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

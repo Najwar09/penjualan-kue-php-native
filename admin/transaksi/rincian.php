@@ -64,11 +64,6 @@ $isi = mysqli_fetch_assoc($hasil);
                                 <td> :</td>
                                 <td><?php echo $isi['no_tlp']; ?></td>
                             </tr>
-                            <tr>
-                                <td>Jumlah </td>
-                                <td> :</td>
-                                <td><?php echo $isi['jumlah']; ?> /pcs</td>
-                            </tr>
 
                             <tr>
                                 <td>Total Harga </td>
@@ -101,6 +96,32 @@ $isi = mysqli_fetch_assoc($hasil);
                             Ubah Status
                         </button>
                     </form>
+                    <br><br><br>
+
+                    <table class="table">
+                        <thead>
+                            <tr class="bg-dark text-light">
+                                <th scope="col">No</th>
+                                <th scope="col">Nama Kue</th>
+                                <th scope="col">jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            $nomor=1;
+                            $kode_booking = $_GET['kode'];
+                            $query = "SELECT * FROM keranjang WHERE id_booking = '$kode_booking'";
+                            $hasil = mysqli_query($connection,$query);
+                            foreach ($hasil as $isi) {
+                            ?>
+                            <tr>
+                                <th scope="row"><?= $nomor; ?></th>
+                                <td ><?= $isi['nama']; ?></td>
+                                <td ><?= $isi['jumlah']; ?></td>
+                            </tr>
+                            <?php $nomor++; } ?>
+                        </tbody>
+                    </table>
                     <a href="transaksi.php" class="btn btn-success">Kembali</a>
 
                 </div>

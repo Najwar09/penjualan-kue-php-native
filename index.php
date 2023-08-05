@@ -158,15 +158,14 @@ $hasil = mysqli_query($connection, $query);
             <h5>Rp.
               <?= number_format($isi['harga']) ?>
             </h5>
-            <?php if ($isi['status'] == 'tersedia') { ?>
-              <a href="keranjang.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-success">Keranjang</a>
-            <?php } else { ?>
-              <a href="keranjang.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-success" disabled>Keranjang</a>
-            <?php } ?>
 
-            <a href="detail.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-info">
-              Rincian
-            </a>
+            <?php if ($isi['status'] == 'tersedia') { ?>
+              <a href="detail.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-info">
+                Beli
+              </a>
+              <?php }else { ?>
+                <input type="button" class="btn btn-info text-light" value="Beli" disabled>
+              <?php }?>
           </div>
         </div>
       <?php } ?>

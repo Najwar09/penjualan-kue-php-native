@@ -44,33 +44,48 @@ if ($_GET['id'] == 'edit') {
     $temp = explode(".", $_FILES["gambar"]["name"]);
     $newfilename = round(microtime(true)) . '.' . end($temp);
     $target_path = $dir . basename($newfilename);
-    $allowedImageType = array("image/gif",   "image/JPG",   "image/jpeg",   "image/pjpeg", "image/png",   "image/x-png");
-    $tes = $_FILES['gambar']["error"];
-    var_dump($tes);
-    
-    if ($_FILES['gambar']["error"] > 0) {
-        echo '<script>alert("Error file");</script>';
-        exit();
-    } elseif (round($_FILES['gambar']["size"] / 1024) > 4096) {
-        echo '<script>alert("WARNING !!! Besar Gambar Tidak Boleh Lebih Dari 4 MB !");history.go(-1)</script>';
-        exit();
-    } else {
-        if (move_uploaded_file($tmp_name, $target_path)) {
+    $allowedImageType = array("image/gif",   "image/JPG",   "image/jpeg",   "image/pjpeg",   "image/png",   "image/x-png");
 
-            $nama_coklat = $_POST['nama_coklat'];
-            $harga = $_POST['harga'];
-            $stok = $_POST['stok'];
-            $deskripsi = $_POST['deskripsi'];
-            $status = $_POST['status'];
-            $gambar = $newfilename;
-            $gambar_lama = $_POST['gambar_lama'];
-            var_dump($gambar_lama);
+    $gambar = $_POST['gambar_lama'];
 
-            $query = "UPDATE coklat SET nama_coklat='$nama_coklat',harga='$harga',stok='$stok',deskripsi='$deskripsi',status='$status',gambar='$gambar'";
-            mysqli_query($connection, $query);
+    $id_coklat = $_POST['id_coklat'];
 
+    $nama_coklat = $_POST['nama_coklat'];
+    $harga = $_POST['harga'];
+    $stok = $_POST['stok'];
+    $deskripsi = $_POST['deskripsi'];
+    $status = $_POST['status'];
+
+    if ($_FILES['gambar']["size"] > 0) {
+        if ($_FILES['gambar']["error"] > 0) {
+            echo '<script>alert("Error file");history.go(-1)</script>';
+            exit();
+        } elseif (!in_array($_FILES['gambar']["type"], $allowedImageType)) {
+            echo '<script>alert("You can only upload JPG, PNG and GIF file");history.go(-1)</script>';
+            exit();
+        } elseif (round($_FILES['gambar']["size"] / 1024) > 4096) {
+            echo '<script>alert("WARNING !!! Besar Gambar Tidak Boleh Lebih Dari 4 MB !");history.go(-1)</script>';
+            exit();
+        } else {
+            if (move_uploaded_file($tmp_name, $target_path)) {
+                if (file_exists('../../images/' . $gambar)) {
+                    unlink('../../images/' . $gambar);
+                }
+                $gambar = $newfilename;
+            } else {
+                echo '<script>alert("Error file");history.go(-1)</script>';
+                exit();
+            }
         }
+    } else {
+        $gambar = $_POST['gambar_lama'];
     }
+
+    
+    $query = "UPDATE coklat SET nama_coklat= '$nama_coklat', harga='$harga', stok='$stok', deskripsi='$deskripsi', status='$status', gambar='$gambar' WHERE id_coklat = '$id_coklat'";
+    mysqli_query($connection,$query);
+    echo '<script>alert("sukses");window.location="coklat.php"</script>';
+
 }
 
 // proses hapus data coklat
@@ -85,5 +100,3 @@ if ($_GET['aksi'] == 'hapus') {
 
     echo '<script>alert("Data berhasil di hapus!");window.location="coklat.php";</script>';
 }
-
-?>

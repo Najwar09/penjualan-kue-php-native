@@ -29,12 +29,14 @@ $hasil = mysqli_query($connection, $query);
             <center>
               <!-- jika status coklat tersedia maka tombol beli akan tampil -->
               <!-- sedangkan jika status coklat habis maka tombol beli akan hilang -->
+
               <?php if ($isi['status'] == 'tersedia') { ?>
-                <a href="keranjang.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-success">Beli</a>
+                <a href="detail.php?id_coklat=<?= $isi['id_coklat'] ?>" class="btn btn-info">
+                  Beli
+                </a>
               <?php } else { ?>
-                <button class="btn btn-success" disabled><a href="booking.php?id_coklat=<?= $isi['id_coklat'] ?>"></a>beli</button>
+                <input type="button" class="btn btn-info text-light" value="Beli" disabled>
               <?php } ?>
-              <a href="detail.php?id_coklat=<?= $isi['id_coklat']; ?>" class="btn btn-primary">Rincian</a>
             </center>
           </div>
         </div>
