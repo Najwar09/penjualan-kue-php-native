@@ -81,7 +81,8 @@ if (empty($_SESSION['pesanan']) || !isset($_SESSION['pesanan'])) {
 if (isset($_POST['konfirm'])) {
 
     $kode_booking = time();
-    $hasil = mysqli_query($connection, "INSERT INTO booking VALUES ('','$idd','$kode_booking','','','','$totalbelanja','belum bayar','')");
+    $tanggal = date("y-m-d");
+    $hasil = mysqli_query($connection, "INSERT INTO booking VALUES ('','$idd','$kode_booking','','','','$totalbelanja','belum bayar','','$tanggal')");
 
     // Mendapatkan ID barusan
     $id_terbaru = $connection->insert_id;

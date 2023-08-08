@@ -2,16 +2,17 @@
 include '../header2.php';
 include '../../koneksi.php';
 
-$query = "SELECT * FROM booking ORDER BY id_booking DESC";
+$tanggalAwal = $_POST['tanggal_awal'];
+$tanggalAkhir = $_POST['tanggal_akhir'];
+
+$query = "SELECT * FROM booking WHERE tanggal BETWEEN '$tanggalAwal' AND '$tanggalAkhir' ORDER BY tanggal DESC";
 $hasil = mysqli_query($connection, $query);
 ?>
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
-    <?php
-    include '../sidebar2.php';
-    ?>
+    
 
 
 
@@ -63,22 +64,15 @@ $hasil = mysqli_query($connection, $query);
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Data User / Data Pelanggan</h1>
+                <h1 class="h3 mb-2 text-gray-800">Data Transaksi</h1>
+
+                <a href="transaksi.php" class="btn btn-danger">Kembali</a>
+                <a href="cetak.php?tgla=<?= $tanggalAwal ?>&tglb=<?= $tanggalAkhir ?>" class="btn btn-success"  target="_blank">Cetak</a><br><br>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Semua Data</h6>
-                    </div>
+                    
 
-                    <!-- inputan tanggal -->
-                    <div class="">
-                        <form class="form-inline" method="post" action="filter.php">
-                            <input class="form-control mr-sm-2" type="date" name="tanggal_awal" placeholder="Cari Nama Transaksi" aria-label="Search">
-                            <input class="form-control mr-sm-2" type="date" name="tanggal_akhir" placeholder="Cari Nama Transaksi" aria-label="Search">
-                            <button class="btn my-2 my-sm-0 text-light bg-success" type="submit">Search</button>
-                        </form>
-                    </div>
 
                     <div class="card-body">
                         <div class="table-responsive">
@@ -94,7 +88,6 @@ $hasil = mysqli_query($connection, $query);
                                         <th>tanggal transaksi</th>
                                         <th>konfirmasi pembayaran</th>
                                         <th>bukti pembayaran</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -112,7 +105,7 @@ $hasil = mysqli_query($connection, $query);
                                             <td><?= $isi['tanggal']; ?></td>
                                             <td><?= $isi['konfirmasi_pembayaran']; ?></td>
                                             <td><img src="../../images/<?= $isi['bukti']; ?>" width="100px"></td>
-                                            <td><a href="rincian.php?id=<?= $isi['id_booking']; ?>&kode=<?= $isi['kode_booking']; ?>" class="btn btn-success">Rincian</a></td>
+                                            <td><input type="text" value="<?= $tanggalAwal; ?>" hidden></td>
                                         </tr>
                                     <?php $no++;
                                     } ?>

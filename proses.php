@@ -181,30 +181,7 @@ if ($_GET['aksi'] == 'hapus_keranjang') {
 	header("location:keranjang.php?pesan=hapus");
 }
 
-//checkout
-if (isset($_POST['konfirm'])) {
-	$tanggal = date("Y-m-d");
-
-	// Menyimpan data ke tabel pemesanan
-	$insert = mysqli_query($koneksi, "INSERT INTO pemesanan (tanggal_pesan, total_harga) VALUES ('$tanggal', '$totalbelanja')");
-
-	// Mendapatkan ID barusan
-	$id_terbaru = $koneksi->insert_id;
-
-	// Menyimpan data ke tabel pemesanan produk
-	foreach ($_SESSION["pesanan"] as $id_produk => $jumlah) {
-		$insert = mysqli_query($koneksi, "INSERT INTO pemesanan_produk (id_user,id_pesan, id_produk, jumlah) 
-		VALUES ('$idd', '$id_terbaru', '$id_produk', '$jumlah') ");
-	}
-
-	// Mengosongkan pesanan
-	unset($_SESSION["pesanan"]);
-
-	// Dialihkan ke halaman nota
-	echo "<script>alert('Pemesanan Sukses!');</script>";
-	echo "<script>location= 'menu_user.php'</script>";
-}
-
+// update username atau password dari user
 if ($_GET['id'] == 'update_user') {
 	$id_login = $_POST['id_login'];
 	$user_baru = $_POST['username_baru'];
